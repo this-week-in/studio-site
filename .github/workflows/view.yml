@@ -1,11 +1,11 @@
-name: API
+name: Deploy
 
-env:
-  CF_USER: ${{ secrets.CF_USER }}
-  CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
-  CF_SPACE: ${{ secrets.CF_SPACE }}
-  CF_API: ${{ secrets.CF_API }}
-  CF_ORG: ${{ secrets.CF_ORG  }}
+# env:
+#   CF_USER: ${{ secrets.CF_USER }}
+#   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+#   CF_SPACE: ${{ secrets.CF_SPACE }}
+#   CF_API: ${{ secrets.CF_API }}
+#   CF_ORG: ${{ secrets.CF_ORG  }}
 
 
 on:
@@ -31,8 +31,8 @@ jobs:
       - run: npm install
       - run: npm run build
 
-      - name: Deploy to Cloud Foundry
-        run: |
-          cd $GITHUB_WORKSPACE
-          ./deploy/cf.sh
-          ./deploy/deploy.sh
+#       - name: Deploy to Cloud Foundry
+#         run: |
+#           cd $GITHUB_WORKSPACE
+#           ./deploy/cf.sh
+#           ./deploy/deploy.sh
