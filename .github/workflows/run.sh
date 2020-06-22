@@ -1,6 +1,9 @@
 #!/usr/bin/env bash 
 
-cd $GITHUB_WORKSPACE 
+cd $CHECKOUT_DIR
+echo "inside ${CHECKOUT_DIR}"
+pwd 
+echo "========="
 npm install
 npm run build
 ./deploy/cf.sh
