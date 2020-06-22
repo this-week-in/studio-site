@@ -2,14 +2,14 @@
 
 cd $CHECKOUT_DIR
 echo "inside ${CHECKOUT_DIR}"
-pwd 
+echo "THE PREFIX IS ${TWI_PREFIX}"
 echo "========="
-npm install
+echo "VUE_APP_SERVICE_ROOT=https://${TWI_PREFIX}-editor-api.cfapps.io" > .env.production
+npm install 
 npm run build
 echo "inside the directory ..."
 pwd 
 ls -la 
 ./deploy/cf.sh
-
 ./deploy/deploy.sh
 
