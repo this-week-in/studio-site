@@ -6,6 +6,10 @@ pwd
 echo "========="
 npm install
 npm run build
+echo "inside the directory ..."
+pwd 
+ls -la 
 ./deploy/cf.sh
+
 ./deploy/deploy.sh
 
