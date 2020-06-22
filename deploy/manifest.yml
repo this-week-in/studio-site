@@ -1,10 +1,10 @@
 applications:
-  - name: ttd-editor-view
-    buildpacks:
+  - buildpacks:
       - staticfile_buildpack
     disk_quota: 512M
     instances: 1
     memory: 512M
-    routes:
-      - route: ttd-editor-view.cfapps.io
     stack: cflinuxfs3
+    # routes:
+    #   - route: ttd-editor-view.cfapps.io
+    

@@ -9,4 +9,4 @@ ls -la dist || echo "no dist directory to be found"
 cp ${CHECKOUT_DIR}/deploy/manifest.yml dist
 cp ${CHECKOUT_DIR}/deploy/Staticfile dist
 cd dist
-cf push -f manifest.yml
+cf push ${TWI_PREFIX}-editor-view -f manifest.yml   
