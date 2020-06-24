@@ -10,10 +10,8 @@
     created() {
     },
     data() {
-      return {
-      }
+      return {}
     },
-    methods: {
-    }
+    methods: {}
   };
 </script>
