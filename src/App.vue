@@ -40,7 +40,8 @@
             <StickyTopPane class="sticky-search-panel">
                 <template>
                     <div class="row mt-4">
-                        <div class="col-3 "></div>
+                        <div class="col-3">
+                        </div>
                         <div class="col-6  text-center ">
                             <span style="font-weight: bold">{{count}}</span> results
                         </div>
@@ -53,6 +54,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <Search
+                                        @export-search="exportSearchResultsToMarkdown"
                                         @search-parameters-cleared="searchParametersCleared"
                                         @search-parameters-changed="searchParametersChanged"
                                         :query="search.query"
@@ -65,12 +67,15 @@
                     </div>
                     <div class="row">
                         <div class="col-12 text-center">
-                            <a href="#" v-if="!showSearch" @click.prevent="toggleSearch">
-                                <img alt="Expand Search Panel" class="expand-button" src="/plus.png"/>
-                            </a>
-                            <a href="#" v-if="showSearch" @click.prevent="toggleSearch">
-                                <img alt="Collapse Search Panel" class="expand-button" src="/minus.png"/>
-                            </a>
+
+                            <b-button title="Expand" v-if="!showSearch" @click.prevent="toggleSearch">
+                                <b-icon icon="arrows-expand" aria-hidden="true"></b-icon>
+                            </b-button>
+
+                            <b-button title="Collapse" v-if="showSearch" @click.prevent="toggleSearch">
+                                <b-icon icon="arrows-collapse" aria-hidden="true"></b-icon>
+                            </b-button>
+
                         </div>
                     </div>
                 </template>
@@ -160,6 +165,10 @@
 
     },
     methods: {
+      exportSearchResultsToMarkdown(search) {
+        this.search = search;
+        bookmarkService.exportResults(this.search)
+      },
       toggleSearch() {
         this.showSearch = !this.showSearch
       },

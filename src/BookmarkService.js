@@ -21,15 +21,8 @@ export default class BookmarkService {
     return Promise.resolve()
   }
 
-  search(searchQuery) {
 
-    const context = {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.user.token
-      }
-    };
+  buildSearchResultsUrl(path, searchQuery) {
 
     const params = {};
     if (searchQuery.query !== null && searchQuery.query.trim() !== '') {
@@ -48,15 +41,31 @@ export default class BookmarkService {
       params['stop'] = searchQuery.stop.getTime()
     }
 
-   // console.log(searchQuery.start, ' until ', searchQuery.stop)
-
     const queryParams = []
     for (let k in params) {
       queryParams.push(k + '=' + params [k])
     }
-    ///console.info(queryParams)
 
-    return this.validateAuthentication(fetch(this.bookmarkUri + `bookmarks/search?${queryParams.join('&')}`, context))
+    return this.bookmarkUri + `bookmarks/${path}?${queryParams.join('&')}`
+  }
+
+  exportResults(searchQuery) {
+    const searchResultsUrl = this.buildSearchResultsUrl('export', searchQuery)
+    window.open(searchResultsUrl)
+  }
+
+
+  search(searchQuery) {
+
+    const context = {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + this.user.token
+      }
+    };
+    const searchResultsUrl = this.buildSearchResultsUrl('search', searchQuery)
+    return this.validateAuthentication(fetch(searchResultsUrl, context))
       .then(response => {
         const json = response.json();
         console.debug(json)

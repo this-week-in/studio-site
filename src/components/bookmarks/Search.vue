@@ -33,9 +33,17 @@
                 </label>
             </div>
             <div class="mt-2">
-                <button type="submit" @click.prevent="onSearchChange" :disabled="!dirty" class="btn btn-primary">Search
-                </button>
-                <button type="submit" @click.prevent="clearSearch" :disabled="!dirty" class="btn">Clear</button>
+                <b-button title="Search" class="mr-1" @click.prevent="onSearchChange">
+                    <b-icon icon="search" aria-hidden="true"></b-icon>
+                </b-button>
+                <b-button title="Clear" class="mr-1" @click.prevent="clearSearch">
+                    <b-icon icon="file-earmark" aria-hidden="true"></b-icon>
+                </b-button>
+                <b-button title="Export to Markdown File" class="mr-1" @click.prevent="exportToMarkdown">
+                    <b-icon icon="cloud-download" aria-hidden="true"></b-icon>
+                </b-button>
+
+
             </div>
         </form>
     </div>
@@ -65,20 +73,23 @@
     },
     methods: {
       dateChanged() {
-        console.debug('date changed ', this.startDate)
+      },
+      exportToMarkdown() {
+        //todo parameterize this so that the same event can be used to drive
+        // the creation of a download _OR_ handle search results.
+        this.$emit('export-search', this.search);
+      },
+      onSearchChange() {
+        this.$emit('search-parameters-changed', this.search);
       },
       clearSearch() {
         this.search = new SearchQuery(this.query, this.errors, this.start, this.stop)
         this.$emit('search-parameters-cleared', this.search);
-      },
-      onSearchChange() {
-        this.$emit('search-parameters-changed', this.search);
       }
     },
     data() {
       return {
         startDate: null,
-        dirty: true,
         search: new SearchQuery(this.query, this.errors, this.start, this.stop)
       };
     },
