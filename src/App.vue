@@ -273,7 +273,6 @@
       }
 
       const today = new Date()
-      const twoWeeksAgo = oneWeekAgo(oneWeekAgo(today))
 
       return {
         count: 0,
@@ -281,7 +280,7 @@
         account: {
           authenticated: false
         },
-        search: new SearchQuery(null, false, twoWeeksAgo, today),
+        search: new SearchQuery(null, false, oneWeekAgo(today), today),
         debug: false,
         bookmarks: []
       }
