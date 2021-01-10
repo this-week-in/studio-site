@@ -109,6 +109,7 @@
   import BookmarkService from "./BookmarkService"
   import StickyTopPane from "./components/util/StickyTopPane"
 
+  import getEnv from "@/utils/env";
   const rootUrl = ((u) => (u.endsWith('/')) ? u : u + '/')(process.env.VUE_APP_SERVICE_ROOT)
   const loginService = new LoginService(rootUrl + 'token')
   const bookmarkService = new BookmarkService(rootUrl)
@@ -118,6 +119,10 @@
     mounted() {
     },
     created() {
+
+      console.log('--------------------------------------------------')
+      console.log('connecting to ' + getEnv('VUE_APP_SERVICE_ROOT'));
+      console.log('--------------------------------------------------')
 
       this.showExpandButton = false
       this.showCollapseButton = true

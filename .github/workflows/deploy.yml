@@ -1,11 +1,5 @@
 name: Deploy
 
-# env:
-#   CF_USER: ${{ secrets.CF_USER }}
-#   CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
-#   CF_SPACE: ${{ secrets.CF_SPACE }}
-#   CF_API: ${{ secrets.CF_API }}
-#   CF_ORG: ${{ secrets.CF_ORG  }}
 
 
 on:
@@ -22,9 +16,9 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      # - uses: actions/setup-node@master
-      #   with:
-      #     node-version: '10.x'
+#       - uses: actions/setup-node@master
+#         with:
+#           node-version: '10.x'
 
-      # - run: npm install
-      # - run: npm run build
+       - run: cd $GITHUB_WORKSPACE && ./build_docker_image.sh
+#       - run: npm run build
