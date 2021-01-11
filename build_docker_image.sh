@@ -14,7 +14,7 @@ IMAGE_NAME=${GCR_IMAGE_NAME}:${IMAGE_TAG}
 cd $( cd $(dirname $0)  && pwd )
 docker build -t $APP_NAME .
 image_id=$(docker images -q $APP_NAME)
-docker tag "${image_id}" ${IMAGE}:latest
+docker tag "${image_id}" ${IMAGE_NAME}:latest
 docker tag "${image_id}" $IMAGE_NAME
 docker push $IMAGE_NAME
 
