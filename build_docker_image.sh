@@ -16,9 +16,10 @@ docker build -t $APP_NAME .
 image_id=$(docker images -q $APP_NAME)
 docker tag "${image_id}" ${GCR_IMAGE_NAME}:latest
 docker tag "${image_id}" ${GCR_IMAGE_NAME}:${IMAGE_TAG}
-docker push $IMAGE_NAME
+docker push ${GCR_IMAGE_NAME}:latest
+docker push ${GCR_IMAGE_NAME}:${IMAGE_TAG}
 
 
-echo "pushing ${image_id} to $IMAGE_NAME "
-echo "tagging ${GCR_IMAGE_NAME}"
+# echo "pushing ${image_id} to $IMAGE_NAME "
+# echo "tagging ${GCR_IMAGE_NAME}"
 
