@@ -3,7 +3,7 @@ set -e
 set -o pipefail
 ##
 ##
-APP_NAME=twi-editor-view
+APP_NAME=twi-editor
 PROJECT_ID=${GCLOUD_PROJECT}
 TAG_NAME=${1:-$(date +%s)}
 IMAGE_TAG="production${GITHUB_SHA:-}"
@@ -18,8 +18,4 @@ docker tag "${image_id}" ${GCR_IMAGE_NAME}:latest
 docker tag "${image_id}" ${GCR_IMAGE_NAME}:${IMAGE_TAG}
 docker push ${GCR_IMAGE_NAME}:latest
 docker push ${GCR_IMAGE_NAME}:${IMAGE_TAG}
-
-
-# echo "pushing ${image_id} to $IMAGE_NAME "
-# echo "tagging ${GCR_IMAGE_NAME}"
 
