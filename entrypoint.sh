@@ -1,4 +1,5 @@
 #!/bin/sh
+env 
 echo "starting the This Week In view..."
 JSON_STRING=' window.configs = { "VUE_APP_SERVICE_ROOT": "'"${VUE_APP_SERVICE_ROOT}"'" }'
 INDEX_FILE=/usr/share/nginx/html/index.html
