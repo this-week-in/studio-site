@@ -3,7 +3,7 @@ set -e
 set -o pipefail
 ##
 ##
-APP_NAME=twi-editor
+APP_NAME=twi-studio
 PROJECT_ID=${GCLOUD_PROJECT}
 TAG_NAME=${1:-$(date +%s)}
 IMAGE_TAG="production${GITHUB_SHA:-}"
