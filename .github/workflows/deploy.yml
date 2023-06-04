@@ -1,7 +1,7 @@
 name: Deploy
 
 env:
-  APP_NAME: bookmark-editor-view
+  APP_NAME: studio-site
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GCLOUD_ZONE: ${{ secrets.GCLOUD_ZONE }}
   NS_NAME: ${{ secrets.NS_NAME }}
@@ -50,4 +50,4 @@ jobs:
           export PATH=$GITHUB_WORKSPACE/bin/:$PATH
           (curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.29.0/pack-v0.29.0-linux.tgz" | sudo tar -C  $GITHUB_WORKSPACE/bin/ --no-same-owner -xzv pack)
           cd $GITHUB_WORKSPACE  
-          $GITHUB_WORKSPACE/buildpacks_build.sh
+          $GITHUB_WORKSPACE/.github/workflows/buildpacks_build.sh
