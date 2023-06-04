@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
 IMAGE_NAME=gcr.io/${GCLOUD_PROJECT}/${APP_NAME}
-ROOT_DIR=$(pwd)
+ROOT_DIR=${GITHUB_WORKSPACE}
 
 npm install  
 npm run build
-
 
 mkdir -p ${ROOT_DIR}/build/public
 cp $ROOT_DIR/deploy/nginx-buildpack-config/* ${ROOT_DIR}/build
