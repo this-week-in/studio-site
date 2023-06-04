@@ -1,6 +1,7 @@
 name: Deploy
 
 env:
+  APP_NAME: bookmark-editor-view
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GCLOUD_ZONE: ${{ secrets.GCLOUD_ZONE }}
   NS_NAME: ${{ secrets.NS_NAME }}
@@ -43,4 +44,7 @@ jobs:
           kubectl get pods
 
       
-      - run: cd $GITHUB_WORKSPACE && ./build_docker_image.sh
+      - run: |
+        cd $GITHUB_WORKSPACE  
+        # ./build_docker_image.sh
+        ./buildpacks_build.sh
