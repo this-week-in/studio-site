@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-export IMAGE_NAME=gcr.io/${GCLOUD_PROJECT}/${APP_NAME}
-export ROOT_DIR=${GITHUB_WORKSPACE}
+APP_NAME=${APP_NAME:-bookmark-editor-view}
+export IMAGE_NAME=gcr.io/${GCLOUD_PROJECT:-pgtm-jlong}/${APP_NAME}
+export ROOT_DIR=${GITHUB_WORKSPACE:-$(cd `dirname $0` && pwd)}
 
 npm install && npm run build
 
