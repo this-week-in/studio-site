@@ -1,11 +1,10 @@
 name: Deploy
 
 env:
-  GCLOUD_ZONE : ${{ secrets.GCLOUD_ZONE  }}
-  GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT  }}
+  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
+  GCLOUD_ZONE: ${{ secrets.GCLOUD_ZONE }}
+  NS_NAME: ${{ secrets.NS_NAME }}
   GCLOUD_SA_KEY: ${{ secrets.GCLOUD_SA_KEY }}
-  GKE_CLUSTER_NAME : ${{ secrets.GKE_CLUSTER_NAME  }}
-  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
 on:
   push:
@@ -16,18 +15,32 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
 
-      - uses: google-github-actions/setup-gcloud@master
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
         with:
-          version: '290.0.1'
-          service_account_key: ${{ secrets.GCLOUD_SA_KEY }}
-          project_id: ${{ env.GCLOUD_PROJECT }}
-          export_default_credentials: true
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+
+      - uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCLOUD_SA_KEY }}'
+
+      - id: 'get-credentials'
+        uses: 'google-github-actions/get-gke-credentials@v1'
+        with:
+          cluster_name: '${{ env.GKE_CLUSTER  }}'
+          location: '${{ env.GCLOUD_ZONE }}'
 
       - run: |
-          gcloud config set project $GCLOUD_PROJECT
+          gcloud config set project $GCLOUD_PROJECT 
           gcloud --quiet auth configure-docker
-          gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone "$GCLOUD_ZONE" --project ${GCLOUD_PROJECT}
+          kubectl get pods
 
+      
       - run: cd $GITHUB_WORKSPACE && ./build_docker_image.sh
