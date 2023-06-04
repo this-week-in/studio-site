@@ -46,8 +46,8 @@ jobs:
       
       - run: |
           cd $GITHUB_WORKSPACE
-          export PATH=$GITHUB_WORKSPACE/bin/:$PATH
           mkdir -p $GITHUB_WORKSPACE/bin/
+          export PATH=$GITHUB_WORKSPACE/bin/:$PATH
           (curl -sSL "https://github.com/buildpacks/pack/releases/download/v0.29.0/pack-v0.29.0-linux.tgz" | sudo tar -C  $GITHUB_WORKSPACE/bin/ --no-same-owner -xzv pack)
           cd $GITHUB_WORKSPACE  
           $GITHUB_WORKSPACE/buildpacks_build.sh
